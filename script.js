@@ -26,7 +26,7 @@ const baseDict = {
   and: "na",
   in: "ndani ya",
   on: "juu ya",
-  for: "kwa",
+  at: "kwa",
   from: "kutoka",
   to: "kwa",
   i: "mimi",
