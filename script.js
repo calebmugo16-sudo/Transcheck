@@ -1,83 +1,60 @@
 
 document.getElementById("year").textContent = new Date().getFullYear();
 
-const baseDict = {
-  teacher: "mwalimu",
-  student: "mwanafunzi",
-  friend: "rafiki",
-  mother: "mama",
-  father: "baba",
-  child: "mtoto",
-  school: "shule",
-  home: "nyumbani",
-  food: "chakula",
-  water: "maji",
-  work: "kazi",
-  love: "upendo",
-  book: "kitabu",
-  books: "vitabu",
-  tool: "zana",
-  tools: "zana",
-  equipment: "vifaa",
-  phone: "simu",
-  computer: "kompyuta",
-  at: "kwa",
-  with: "pamoja na",
-  and: "na",
-  in: "ndani ya",
-  on: "juu ya",
-  at: "kwa",
-  from: "kutoka",
-  to: "kwa",
-  i: "mimi",
-  am: "niko",
-  is: "ni",
-  are: "ni"
-};
+document.getElementById("generateBtn").addEventListener("click", translateWord);
 
-function handleSuffix(word) {
-  if (baseDict[word]) return baseDict[word];
+function translateWord() {
+  const w = document.getElementById("inputWord").value
+    .toLowerCase()
+    .trim();
 
-  // plural nouns
-  if (word.endsWith("s")) {
-    let singular = word.slice(0, -1);
-    if (baseDict[singular]) {
-      return "wa" + baseDict[singular].slice(2);
-    }
-  }
+  const dict = {
+    // nouns
+    teacher: "mwalimu",
+    teachers: "walimu",
+    student: "mwanafunzi",
+    students: "wanafunzi",
+    mother: "mama",
+    father: "baba",
+    friend: "rafiki",
+    friends: "marafiki",
+    school: "shule",
+    home: "nyumbani",
+    food: "chakula",
+    water: "maji",
+    book: "kitabu",
+    books: "vitabu",
+    phone: "simu",
 
-  // verb -ing
-  if (word.endsWith("ing")) {
-    let root = word.slice(0, -3);
-    if (baseDict[root]) {
-      return "kufanya " + baseDict[root];
-    }
-    return "kufanya";
-  }
+    // verbs
+    eat: "kula",
+    drink: "kunywa",
+    go: "kwenda",
+    come: "kuja",
+    work: "kazi",
+    working: "kufanya kazi",
+    worked: "alifanya kazi",
+    study: "kusoma",
+    studying: "anasoma",
 
-  // verb -ed
-  if (word.endsWith("ed")) {
-    let root = word.slice(0, -2);
-    if (baseDict[root]) {
-      return "alifanya " + baseDict[root];
-    }
-    return "alifanya";
-  }
+    // articles & connectors
+    at: "kwa",
+    with: "pamoja na",
+    and: "na",
+    in: "ndani ya",
+    on: "juu ya",
+    to: "kwa",
+    from: "kutoka",
 
-  return word;
-}
+    // possessives / suffix style
+    my: "yangu",
+    your: "yako",
+    his: "yake",
+    her: "yake",
+    our: "yetu",
+    their: "yao"
+  };
 
-function translate() {
-  const text = document.getElementById("text").value.toLowerCase().trim();
-  const result = document.getElementById("result");
-
-  if (!text) {
-    result.textContent = "Type something first";
-    return;
-  }
-
-  const words = text.split(" ");
-  const translated = words.map(w => handleSuffix(w));
-
-  result.textContent = translated.join(" ");
+  document.getElementById("result").textContent =
+    dict[w] || "Translation not found";
 }
